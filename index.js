@@ -65,10 +65,10 @@ const server = http.createServer((req, res) => {
   if (pathName === '/' || pathName === '/overview')  {
     res.writeHead(200, { 'Content-type': 'text/html' });
 
-    const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el));
-    console.log(cardsHtml);
+    const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el)).join(''); // join() with empty string will make the cardsHtml truly become a string
+    const output = tempOverview.replace(/{%PRODUCT_CARDS%}/g, cardsHtml);
 
-    res.end(tempOverview);
+    res.end(output);
 
   // Product page
   } else if (pathName === '/product') {
